@@ -74,7 +74,7 @@ int main() {
         cin >> userISBN;
 
         if (userISBN == "0") {
-            cout << "Exiting the system.\n";
+            cout << "Thank you! Exiting the library system.\n";
             break;
         }
 
@@ -98,3 +98,4 @@ int main() {
 
     return 0;
 }
+
