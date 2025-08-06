@@ -25,7 +25,7 @@ public:
         cout << "ISBN: " << ISBN << endl;
         cout << "Available: " << (availability ? "Yes" : "No") << endl;
         cout << "Date Added: " << dateAdded << endl;
-        cout << "-----------------------------" << endl;
+        cout << "-----------------------------" << endl << endl;
     }
 
     string getISBN() {
@@ -98,4 +98,5 @@ int main() {
 
     return 0;
 }
+
 
