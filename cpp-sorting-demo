@@ -1,1 +1,5 @@
+pwd
+Is
+clang++ -std=c++17 -02 -wall main.cpp -0 sort_demo
+./sort_demo
 
