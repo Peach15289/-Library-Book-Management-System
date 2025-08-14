@@ -1,46 +1,32 @@
 #include <iostream>
-#include <vector>
+#include <fstream>
 #include "bookait.h"
 
-using namespace std;
-
 int main() {
-    Book b1, b2, b3;
-    b1.setBookDetails("C++ Basics", "John Smith", "1001", true, "2023-01-01");
-    b2.setBookDetails("OOP Concepts", "Alice Green", "1002", true, "2023-02-15");
-    b3.setBookDetails("Data Structures", "Bob White", "1003", true, "2023-03-10");
+    std::vector<Book> books = {
+        Book("C++ Basics", "John Smith", "1001", true, "2023-01-01"),
+        Book("OOP Concepts", "Alice Green", "1002", true, "2023-02-15"),
+        Book("Data Structures", "Bob White", "1003", true, "2023-03-10")
+    };
 
-    vector<Book> asc   = { b1, b2, b3 };
-    vector<Book> desc  = { b3, b2, b1 };
-    vector<Book> mixed = { b2, b1, b3 };
+    std::ofstream outFile("library_sort_results.txt");
 
-    cout << "\n===== ASC input → sort to ASC =====\nBefore Sorting:\n";
-    printBooks(asc);
-    sortBooksByISBN(asc, true);
-    cout << "After Sorting:\n";
-    printBooks(asc);
+    // Before Sorting
+    outFile << "=== BEFORE SORTING (Original Order) ===\n";
+    printBooks(books, outFile);
 
-    string userISBN;
-    while (true) {
-        cout << "\n--- Borrow a Book by ISBN (Enter 0 to exit) ---\n";
-        cout << "Available books:\n";
-        for (const auto& book : asc) book.displayBookDetails();
+    // ASCENDING Sort
+    sortBooksByISBN(books, true);
+    outFile << "=== AFTER SORTING (Ascending by ISBN) ===\n";
+    printBooks(books, outFile);
 
-        cout << "Enter ISBN: ";
-        cin >> userISBN;
-        if (userISBN == "0") break;
+    // DESCENDING Sort
+    sortBooksByISBN(books, false);
+    outFile << "=== AFTER SORTING (Descending by ISBN) ===\n";
+    printBooks(books, outFile);
 
-        bool found = false;
-        for (auto& book : asc) {
-            if (book.getISBN() == userISBN) {
-                found = true;
-                book.borrowBook();
-                break;
-            }
-        }
-        if (!found) cout << "Error: Book not found.\n";
-    }
+    outFile.close();
 
-    cout << "Exiting library system.\n";
+    std::cout << "Results saved to library_sort_results.txt\n";
     return 0;
 }
